@@ -1,6 +1,6 @@
 import axios from "axios";
-import { withStyles } from '@material-ui/core/styles';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import { withStyles } from "@material-ui/core/styles";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -9,53 +9,53 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TablePagination from "@material-ui/core/TablePagination";
 import Paper from "@material-ui/core/Paper";
-import offerListUrl from  "../../settings/env";
+import offerListUrl from "../../settings/env";
 import "../../index.scss";
 
-const StyledTableCell = withStyles((theme) => ({
+const StyledTableCell = withStyles(theme => ({
     head: {
-      backgroundColor: theme.palette.common.blue,
-      color: theme.palette.common.white
+        backgroundColor: theme.palette.common.blue,
+        color: theme.palette.common.white,
     },
     body: {
-      fontSize: 16,
+        fontSize: 16,
     },
-  }))(TableCell);
+}))(TableCell);
 
-const StyledTableRow = withStyles((theme) => ({
+const StyledTableRow = withStyles(theme => ({
     root: {
-      '&:nth-of-type(odd)': {
-        backgroundColor: theme.palette.action.hover,
-      },
+        "&:nth-of-type(odd)": {
+            backgroundColor: theme.palette.action.hover,
+        },
     },
 }))(TableRow);
 
-//A utility function is created so that we don't have to create dozens of different methods:
-//Sort ascending
+// A utility function is created so that we don't have to create dozens of different methods:
+// Sort ascending
 function sortAsc(arr, field) {
-   return arr.sort(function (a, b) {
-       if (a[field] > b[field]) {
-           return 1;
-       }
-       if (b[field]> a[field]) {
-           return -1;
-       }
-       return 0;
-   })
+    return arr.sort(function (a, b) {
+        if (a[field] > b[field]) {
+            return 1;
+        }
+        if (b[field] > a[field]) {
+            return -1;
+        }
+        return 0;
+    });
 }
 
-//Sort descending
+// Sort descending
 function sortDesc(arr, field) {
     return arr.sort(function (a, b) {
         if (a[field] > b[field]) {
             return -1;
         }
-        if (b[field]> a[field]) {
+        if (b[field] > a[field]) {
             return 1;
         }
         return 0;
-    })
- }
+    });
+}
 
 export default function DirectoryList({ offerList, ...props }) {
     let sorted = [];
@@ -85,26 +85,26 @@ export default function DirectoryList({ offerList, ...props }) {
         setPage(0);
     };
 
-    //Select method to order
+    // Select method to order
     const selectOrderMethod = event => {
         switch (event.target.value) {
-            case "A-Z":  //Sort alphabetically from A to Z
-                sorted =  sortAsc([...offers], 'name') 
+            case "A-Z": // Sort alphabetically from A to Z
+                sorted = sortAsc([...offers], "name");
                 setOffers(sorted);
 
                 break;
-            case "Z-A":  //Sort alphabetically from Z to A
-                sorted =  sortDesc([...offers], 'name') 
+            case "Z-A": // Sort alphabetically from Z to A
+                sorted = sortDesc([...offers], "name");
                 setOffers(sorted);
 
                 break;
-            case "discount-mayor": //Sort discounts from highest to lowestp
-                sorted =  sortDesc([...offers], 'discount') 
+            case "discount-mayor": // Sort discounts from highest to lowestp
+                sorted = sortDesc([...offers], "discount");
                 setOffers(sorted);
 
                 break;
             case "discount-minor": // Sort discounts from lowest to highest
-                sorted =  sortAsc([...offers], 'discount') 
+                sorted = sortAsc([...offers], "discount");
                 setOffers(sorted);
 
                 break;
@@ -120,7 +120,9 @@ export default function DirectoryList({ offerList, ...props }) {
         return (
             <div>
                 <p className="loaderText blink">Loading...</p>
-                <div className="loaderText"><CircularProgress color="ligth"/></div>
+                <div className="loaderText">
+                    <CircularProgress color="ligth" />
+                </div>
             </div>
         );
     }
@@ -136,8 +138,12 @@ export default function DirectoryList({ offerList, ...props }) {
                     </option>
                     <option value="A-Z">Alphabet - A-Z</option>
                     <option value="Z-A">Alphabet - Z-A</option>
-                    <option value="discount-minor">Discount - Lowest to Highest</option>
-                    <option value="discount-mayor">Discount - Highest to Lowest</option>
+                    <option value="discount-minor">
+                        Discount - Lowest to Highest
+                    </option>
+                    <option value="discount-mayor">
+                        Discount - Highest to Lowest
+                    </option>
                 </select>
             </section>
 
@@ -145,8 +151,12 @@ export default function DirectoryList({ offerList, ...props }) {
                 <Table size="small">
                     <TableHead style="background-color: #3759F3;">
                         <TableRow>
-                            <StyledTableCell><b>Offers</b></StyledTableCell>
-                            <StyledTableCell><b>Discount</b></StyledTableCell>
+                            <StyledTableCell>
+                                <b>Offers</b>
+                            </StyledTableCell>
+                            <StyledTableCell>
+                                <b>Discount</b>
+                            </StyledTableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
